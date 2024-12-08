@@ -14,7 +14,7 @@ public final class JsonSerializerHelper {
     public static String FormatObjectInit(String propertyName) {
         return IsNullOrEmpty(propertyName)
                 ? Constants.Object.OBJECT_OPEN_BRACE
-                : propertyName + Constants.Property.ASSIGNMENT_SEPARATOR + Constants.Object.OBJECT_OPEN_BRACE;
+                : FormatProperty(propertyName) + Constants.Property.ASSIGNMENT_SEPARATOR + Constants.Object.OBJECT_OPEN_BRACE;
     }
 
     public static boolean IsObjectSerializable(Class<?> reflect) {
@@ -30,6 +30,7 @@ public final class JsonSerializerHelper {
     }
 
     public static Object GetUnderlyingFieldValue(Field field, Object parent) throws IllegalAccessException {
+        field.setAccessible(true);
         return field.get(parent);
     }
 }

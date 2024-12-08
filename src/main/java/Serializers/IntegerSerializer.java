@@ -4,7 +4,7 @@ import Constants.Constants;
 import Helpers.JsonSerializerHelper;
 import Serializers.Interfaces.Serializer;
 
-public class IntegerSerializer implements Serializer<Integer> {
+public class IntegerSerializer implements Serializer {
     @Override
     public String Serialize(String propertyName, Object value) {
         return JsonSerializerHelper.FormatProperty(propertyName) + Constants.Property.ASSIGNMENT_SEPARATOR + value;

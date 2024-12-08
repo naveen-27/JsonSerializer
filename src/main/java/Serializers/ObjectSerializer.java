@@ -4,10 +4,9 @@ import Annotations.JsonProperty;
 import Helpers.JsonSerializerHelper;
 import Helpers.SerializerFactory;
 import Serializers.Interfaces.Serializer;
-
 import java.lang.reflect.Field;
 
-public class ObjectSerializer implements Serializer<Object> {
+public class ObjectSerializer implements Serializer {
     @Override
     public String Serialize(String propertyName, Object value) {
         if (value == null) { return ""; }
@@ -42,7 +41,13 @@ public class ObjectSerializer implements Serializer<Object> {
 
         if (jsonPropertyAnnotation == null) { return ""; }
 
-        Serializer<?> serializer = SerializerFactory.GetSerializer(field.getType().getSimpleName());
-        return serializer.Serialize(field.getName(), JsonSerializerHelper.GetUnderlyingFieldValue(field, parent));
+        Serializer serializer = SerializerFactory.GetSerializer(field.getType().getSimpleName());
+        String propertyName = ExtractPropertyName(jsonPropertyAnnotation, field);
+        return serializer.Serialize(propertyName, JsonSerializerHelper.GetUnderlyingFieldValue(field, parent));
+    }
+
+    private String ExtractPropertyName(JsonProperty jsonPropertyAnnotation, Field field) {
+        String annotatedName = jsonPropertyAnnotation.Name();
+        return annotatedName.isEmpty() ? field.getName() : annotatedName;
     }
 }

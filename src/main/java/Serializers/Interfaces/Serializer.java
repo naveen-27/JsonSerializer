@@ -1,5 +1,5 @@
 package Serializers.Interfaces;
 
-public interface Serializer<T> {
+public interface Serializer {
     String Serialize(String propertyName, Object value);
 }
