@@ -3,8 +3,6 @@ package Models;
 import Annotations.JsonProperty;
 import Annotations.JsonSerializable;
 
-import java.util.List;
-
 @JsonSerializable
 public class Person {
     @JsonProperty(Name = "secondName")
@@ -21,6 +19,9 @@ public class Person {
 
     @JsonProperty(Name = "list2")
     public int[] Ages = new int[] {1, 3, 4};
+
+    @JsonProperty(Name = "People")
+    public Person[] People;
 
     public void setAge(int age) {
         Age = age;

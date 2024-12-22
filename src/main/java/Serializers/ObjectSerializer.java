@@ -3,7 +3,7 @@ package Serializers;
 import Annotations.JsonProperty;
 import Constants.Constants;
 import Helpers.JsonSerializerHelper;
-import Helpers.SerializerFactory;
+import Factories.SerializerFactory;
 import Serializers.Interfaces.Serializer;
 
 import java.lang.reflect.Field;

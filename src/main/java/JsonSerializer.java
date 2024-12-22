@@ -1,4 +1,4 @@
-import Helpers.SerializerFactory;
+import Factories.SerializerFactory;
 import Serializers.Interfaces.Serializer;
 
 public final class JsonSerializer {

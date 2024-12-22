@@ -33,4 +33,8 @@ public final class JsonSerializerHelper {
     public static String WrapWithQuotes(String serializedPrimitiveObject) {
         return Constants.QUOTE + serializedPrimitiveObject + Constants.QUOTE;
     }
+
+    public static boolean IsArray(String simpleTypeName) {
+        return simpleTypeName.endsWith("[]");
+    }
 }
