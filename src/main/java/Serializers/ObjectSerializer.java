@@ -11,34 +11,16 @@ import java.lang.reflect.Field;
 public class ObjectSerializer implements Serializer<Object> {
     @Override
     public String Serialize(Object object) {
-        if (object == null) { return ""; }
+        if (object == null)
+            return Constants.Object.OPEN_BRACE + Constants.Object.CLOSE_BRACE;
 
         Class<?> objectReflect = object.getClass();
         boolean isSerializable = JsonSerializerHelper.IsObjectSerializable(objectReflect);
 
-        if (!isSerializable) { return ""; }
+        if (!isSerializable)
+            return "";
 
-        StringBuilder serializedObjectBuffer = new StringBuilder(Constants.Object.OPEN_BRACE);
-        Field[] fields = objectReflect.getDeclaredFields();
-
-        for (int fieldIdx = 0; fieldIdx < fields.length; fieldIdx++) {
-            Field field = fields[fieldIdx];
-            JsonProperty jsonPropertyAnnotation = JsonSerializerHelper.GetPropertyForField(field);
-
-            String serializedField = SerializeFieldInternal(field, jsonPropertyAnnotation, object);
-            if (!JsonSerializerHelper.IsNullOrEmpty(serializedField)) {
-                String propertyName = ExtractPropertyName(jsonPropertyAnnotation, field);
-
-                if (fieldIdx != 0) {
-                    serializedObjectBuffer.append(Constants.Property.DELIMITER);
-                }
-
-                serializedObjectBuffer.append(BindPropertyToField(propertyName, serializedField));
-            }
-        }
-
-        serializedObjectBuffer.append(Constants.Object.CLOSE_BRACE);
-        return serializedObjectBuffer.toString();
+        return SerializeInternal(object, objectReflect);
     }
 
     @Override
@@ -46,16 +28,47 @@ public class ObjectSerializer implements Serializer<Object> {
         return object;
     }
 
-    private String SerializeFieldInternal(Field field, JsonProperty jsonPropertyAnnotation, Object parent) {
-        if (jsonPropertyAnnotation == null) { return ""; }
+    private static String SerializeInternal(Object object, Class<?> objectReflect) {
+        StringBuilder serializedObjectBuilder = new StringBuilder(Constants.Object.OPEN_BRACE);
+        Field[] fields = objectReflect.getDeclaredFields();
 
-        String typeName = JsonSerializerHelper.GetTypeFromSimpleName(field.getType().getSimpleName());
-        Serializer<?> serializer = SerializerFactory.GetSerializer(typeName);
-        return serializer.Serialize(JsonSerializerHelper.GetUnderlyingFieldValue(field, parent));
+        for (Field field : fields) {
+            AppendField(serializedObjectBuilder, field, object);
+        }
+
+        serializedObjectBuilder.append(Constants.Object.CLOSE_BRACE);
+        return serializedObjectBuilder.toString();
     }
 
-    private static String ExtractPropertyName(JsonProperty jsonPropertyAnnotation, Field field) {
-        String annotatedName = jsonPropertyAnnotation.Name();
+    private static String SerializeFieldInternal(Field field, Object parent) {
+        String typeName = JsonSerializerHelper.GetTypeFromSimpleName(field.getType().getSimpleName());
+        Serializer<?> serializer = SerializerFactory.GetSerializer(typeName);
+        Object underlyingValue = JsonSerializerHelper.GetUnderlyingFieldValue(field, parent);
+
+        if (underlyingValue == null) {
+            return null;
+        }
+        return serializer.Serialize(underlyingValue);
+    }
+
+    private static void AppendField(StringBuilder serializerBuilder, Field field, Object value) {
+        JsonProperty jsonProperty = JsonSerializerHelper.GetPropertyForField(field);
+        if (jsonProperty == null)
+            return;
+
+        String serializedField = SerializeFieldInternal(field, value);
+        if (serializedField == null && jsonProperty.IgnoreIfNull())
+            return;
+
+        String propertyName = ExtractPropertyName(jsonProperty, field);
+        if (serializerBuilder.charAt(serializerBuilder.length() - 1) != Constants.Object.OPEN_BRACE.charAt(0)) {
+            serializerBuilder.append(Constants.Property.DELIMITER);
+        }
+        serializerBuilder.append(BindPropertyToField(propertyName, serializedField));
+    }
+
+    private static String ExtractPropertyName(JsonProperty jsonProperty, Field field) {
+        String annotatedName = jsonProperty.Name();
         return annotatedName.isEmpty() ? field.getName() : annotatedName;
     }
 

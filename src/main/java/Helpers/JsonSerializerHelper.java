@@ -28,7 +28,8 @@ public final class JsonSerializerHelper {
             return field.get(parent);
         }
         catch (Exception ex) {
-            System.err.println(ex);
+            String errMessage = ex.getMessage();
+            System.err.println(errMessage);
             return "";
         }
     }

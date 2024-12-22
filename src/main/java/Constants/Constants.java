@@ -11,6 +11,7 @@ public final class Constants {
     public static class Property {
         public static final String ASSIGNMENT_SEPARATOR = ":";
         public static final String DELIMITER = ",";
+        public static final String JSON_NULL = "null";
     }
 
     public static class Array {
