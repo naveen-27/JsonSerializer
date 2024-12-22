@@ -1,12 +1,15 @@
 package Serializers;
 
-import Constants.Constants;
-import Helpers.JsonSerializerHelper;
 import Serializers.Interfaces.Serializer;
 
-public class IntegerSerializer implements Serializer {
+public class IntegerSerializer implements Serializer<Integer> {
     @Override
-    public String Serialize(String propertyName, Object value) {
-        return JsonSerializerHelper.FormatProperty(propertyName) + Constants.Property.ASSIGNMENT_SEPARATOR + value;
+    public String Serialize(Object object) {
+        return this.GetOriginalTypeValue(object).toString();
+    }
+
+    @Override
+    public Integer GetOriginalTypeValue(Object object) {
+        return (Integer) object;
     }
 }

@@ -1,5 +1,6 @@
 package Serializers.Interfaces;
 
-public interface Serializer {
-    String Serialize(String propertyName, Object value);
+public interface Serializer<T> {
+    String Serialize(Object object);
+    T GetOriginalTypeValue(Object object);
 }

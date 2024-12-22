@@ -3,18 +3,11 @@ package Helpers;
 import Annotations.JsonProperty;
 import Annotations.JsonSerializable;
 import Constants.Constants;
-
 import java.lang.reflect.Field;
 
 public final class JsonSerializerHelper {
     public static String FormatProperty(String propertyName) {
         return Constants.QUOTE + propertyName + Constants.QUOTE;
-    }
-
-    public static String FormatObjectInit(String propertyName) {
-        return IsNullOrEmpty(propertyName)
-                ? Constants.Object.OBJECT_OPEN_BRACE
-                : FormatProperty(propertyName) + Constants.Property.ASSIGNMENT_SEPARATOR + Constants.Object.OBJECT_OPEN_BRACE;
     }
 
     public static boolean IsObjectSerializable(Class<?> reflect) {
@@ -29,8 +22,26 @@ public final class JsonSerializerHelper {
         return string == null || string.isEmpty();
     }
 
-    public static Object GetUnderlyingFieldValue(Field field, Object parent) throws IllegalAccessException {
-        field.setAccessible(true);
-        return field.get(parent);
+    public static Object GetUnderlyingFieldValue(Field field, Object parent) {
+        try {
+            field.setAccessible(true);
+            return field.get(parent);
+        }
+        catch (Exception ex) {
+            System.err.println(ex);
+            return "";
+        }
+    }
+
+    public static String GetTypeFromSimpleName(String simpleTypeName) {
+        if (simpleTypeName.endsWith("[]")) {
+            return "ARRAY";
+        }
+
+        return simpleTypeName;
+    }
+
+    public static String WrapWithQuotes(String serializedPrimitiveObject) {
+        return Constants.QUOTE + serializedPrimitiveObject + Constants.QUOTE;
     }
 }

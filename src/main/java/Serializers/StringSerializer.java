@@ -1,16 +1,16 @@
 package Serializers;
 
-import Constants.Constants;
 import Helpers.JsonSerializerHelper;
 import Serializers.Interfaces.Serializer;
 
-public class StringSerializer implements Serializer {
+public class StringSerializer implements Serializer<String> {
     @Override
-    public String Serialize(String propertyName, Object value) {
-        return JsonSerializerHelper.FormatProperty(propertyName) +
-               Constants.Property.ASSIGNMENT_SEPARATOR +
-               Constants.QUOTE +
-               value +
-               Constants.QUOTE;
+    public String Serialize(Object object) {
+        return JsonSerializerHelper.WrapWithQuotes(this.GetOriginalTypeValue(object));
+    }
+
+    @Override
+    public String GetOriginalTypeValue(Object object) {
+        return (String) object;
     }
 }
