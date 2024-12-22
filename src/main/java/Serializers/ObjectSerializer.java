@@ -41,8 +41,7 @@ public class ObjectSerializer implements Serializer<Object> {
     }
 
     private static String SerializeFieldInternal(Field field, Object parent) {
-        String typeName = JsonSerializerHelper.GetTypeFromSimpleName(field.getType().getSimpleName());
-        Serializer<?> serializer = SerializerFactory.GetSerializer(typeName);
+        Serializer<?> serializer = SerializerFactory.GetSerializer(field.getType().getSimpleName());
         Object underlyingValue = JsonSerializerHelper.GetUnderlyingFieldValue(field, parent);
 
         if (underlyingValue == null) {

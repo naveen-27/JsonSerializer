@@ -18,10 +18,6 @@ public final class JsonSerializerHelper {
         return fieldReflect.getDeclaredAnnotation(JsonProperty.class);
     }
 
-    public static boolean IsNullOrEmpty(String string) {
-        return string == null || string.isEmpty();
-    }
-
     public static Object GetUnderlyingFieldValue(Field field, Object parent) {
         try {
             field.setAccessible(true);
@@ -32,14 +28,6 @@ public final class JsonSerializerHelper {
             System.err.println(errMessage);
             return "";
         }
-    }
-
-    public static String GetTypeFromSimpleName(String simpleTypeName) {
-        if (simpleTypeName.endsWith("[]")) {
-            return "ARRAY";
-        }
-
-        return simpleTypeName;
     }
 
     public static String WrapWithQuotes(String serializedPrimitiveObject) {
