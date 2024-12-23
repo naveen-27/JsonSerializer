@@ -5,12 +5,12 @@ import Serializers.Interfaces.Serializer;
 
 public class StringSerializer implements Serializer<String> {
     @Override
-    public String Serialize(Object object) {
-        return JsonSerializerHelper.WrapWithQuotes(this.GetOriginalTypeValue(object));
+    public String serialize(Object object) {
+        return JsonSerializerHelper.wrapWithQuotes(this.getOriginalTypeValue(object));
     }
 
     @Override
-    public String GetOriginalTypeValue(Object object) {
+    public String getOriginalTypeValue(Object object) {
         return (String) object;
     }
 }

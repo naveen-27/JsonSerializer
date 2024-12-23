@@ -4,12 +4,12 @@ import Serializers.Interfaces.Serializer;
 
 public class IntegerSerializer implements Serializer<Integer> {
     @Override
-    public String Serialize(Object object) {
-        return this.GetOriginalTypeValue(object).toString();
+    public String serialize(Object object) {
+        return this.getOriginalTypeValue(object).toString();
     }
 
     @Override
-    public Integer GetOriginalTypeValue(Object object) {
+    public Integer getOriginalTypeValue(Object object) {
         return (Integer) object;
     }
 }

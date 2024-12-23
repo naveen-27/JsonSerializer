@@ -1,22 +1,21 @@
 package Serializers;
 
-import Serializers.Interfaces.Serializer;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class ObjectArraySerializer extends BaseArraySerializer<Object> implements Serializer<Object[]> {
+public class ObjectArraySerializer extends AbstractArraySerializer<Object> {
     public ObjectArraySerializer() {
         super(new ObjectSerializer());
     }
 
     @Override
-    public String Serialize(Object object) {
-        Stream<Object> stream = Arrays.stream(this.GetOriginalTypeValue(object));
-        return this.SerializeArray(stream);
+    public String serialize(Object object) {
+        Stream<Object> stream = Arrays.stream(this.getOriginalTypeValue(object));
+        return this.serializeArray(stream);
     }
 
     @Override
-    public Object[] GetOriginalTypeValue(Object object) {
+    public Object[] getOriginalTypeValue(Object object) {
         return (Object[]) object;
     }
 }

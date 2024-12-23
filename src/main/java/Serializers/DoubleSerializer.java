@@ -4,12 +4,12 @@ import Serializers.Interfaces.Serializer;
 
 public class DoubleSerializer implements Serializer<Double> {
     @Override
-    public String Serialize(Object object) {
-        return this.GetOriginalTypeValue(object).toString();
+    public String serialize(Object object) {
+        return this.getOriginalTypeValue(object).toString();
     }
 
     @Override
-    public Double GetOriginalTypeValue(Object object) {
+    public Double getOriginalTypeValue(Object object) {
         return (Double) object;
     }
 }

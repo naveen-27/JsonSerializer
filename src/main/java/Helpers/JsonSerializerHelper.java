@@ -6,19 +6,19 @@ import Constants.Constants;
 import java.lang.reflect.Field;
 
 public final class JsonSerializerHelper {
-    public static String FormatProperty(String propertyName) {
+    public static String formatProperty(String propertyName) {
         return Constants.QUOTE + propertyName + Constants.QUOTE;
     }
 
-    public static boolean IsObjectSerializable(Class<?> reflect) {
+    public static boolean isObjectSerializable(Class<?> reflect) {
         return reflect.getDeclaredAnnotation(JsonSerializable.class) != null;
     }
 
-    public static JsonProperty GetPropertyForField(Field fieldReflect) {
+    public static JsonProperty getPropertyForField(Field fieldReflect) {
         return fieldReflect.getDeclaredAnnotation(JsonProperty.class);
     }
 
-    public static Object GetUnderlyingFieldValue(Field field, Object parent) {
+    public static Object getUnderlyingFieldValue(Field field, Object parent) {
         try {
             field.setAccessible(true);
             return field.get(parent);
@@ -30,11 +30,11 @@ public final class JsonSerializerHelper {
         }
     }
 
-    public static String WrapWithQuotes(String serializedPrimitiveObject) {
+    public static String wrapWithQuotes(String serializedPrimitiveObject) {
         return Constants.QUOTE + serializedPrimitiveObject + Constants.QUOTE;
     }
 
-    public static boolean IsArray(String simpleTypeName) {
+    public static boolean isArray(String simpleTypeName) {
         return simpleTypeName.endsWith("[]");
     }
 }

@@ -5,16 +5,16 @@ import Serializers.*;
 import Serializers.Interfaces.Serializer;
 
 public class SerializerFactory {
-    public static Serializer<?> GetSerializer(String simpleTypeName) {
+    public static Serializer<?> getSerializer(String simpleTypeName) {
         simpleTypeName = simpleTypeName.toUpperCase();
 
-        if (JsonSerializerHelper.IsArray(simpleTypeName))
-            return GetArraySerializer(simpleTypeName);
+        if (JsonSerializerHelper.isArray(simpleTypeName))
+            return getArraySerializer(simpleTypeName);
 
-        return GetPrimitiveSerializer(simpleTypeName);
+        return getPrimitiveSerializer(simpleTypeName);
     }
 
-    private static Serializer<?> GetArraySerializer(String simpleTypeName) {
+    private static Serializer<?> getArraySerializer(String simpleTypeName) {
         return switch (simpleTypeName) {
             case "INT[]", "INTEGER[]" -> new IntegerArraySerializer();
             case "STRING[]" -> new StringArraySerializer();
@@ -23,7 +23,7 @@ public class SerializerFactory {
         };
     }
 
-    private static Serializer<?> GetPrimitiveSerializer(String simpleTypeName) {
+    private static Serializer<?> getPrimitiveSerializer(String simpleTypeName) {
         return switch (simpleTypeName) {
             case "INTEGER", "INT" -> new IntegerSerializer();
             case "DOUBLE" -> new DoubleSerializer();

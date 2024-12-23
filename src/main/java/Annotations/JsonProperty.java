@@ -6,6 +6,6 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Inherited
 public @interface JsonProperty {
-    String Name() default "";
-    boolean IgnoreIfNull() default false;
+    String name() default "";
+    boolean ignoreIfNull() default false;
 }
