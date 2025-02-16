@@ -1,11 +1,13 @@
-package Serializers;
+package Serializers.Array;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
+import Serializers.Abstractions.ArraySerializer;
+import Serializers.Abstractions.Serializer;
 
-public class IntegerArraySerializer extends AbstractArraySerializer<Integer> {
-    public IntegerArraySerializer() {
-        super(new IntegerSerializer());
+public class IntegerArraySerializer extends ArraySerializer<Integer> {
+    public IntegerArraySerializer(Serializer<Integer> integerSerializer) {
+        super(integerSerializer);
     }
 
     @Override

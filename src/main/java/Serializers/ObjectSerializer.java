@@ -1,11 +1,11 @@
 package Serializers;
 
+import java.lang.reflect.Field;
 import Annotations.JsonProperty;
 import Constants.Constants;
 import Helpers.JsonSerializerHelper;
 import Factories.SerializerFactory;
-import Serializers.Interfaces.Serializer;
-import java.lang.reflect.Field;
+import Serializers.Abstractions.Serializer;
 
 public class ObjectSerializer implements Serializer<Object> {
     @Override

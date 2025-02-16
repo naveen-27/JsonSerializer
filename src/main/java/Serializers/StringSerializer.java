@@ -1,7 +1,7 @@
 package Serializers;
 
 import Helpers.JsonSerializerHelper;
-import Serializers.Interfaces.Serializer;
+import Serializers.Abstractions.Serializer;
 
 public class StringSerializer implements Serializer<String> {
     @Override

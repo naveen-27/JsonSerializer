@@ -1,6 +1,6 @@
 package Serializers;
 
-import Serializers.Interfaces.Serializer;
+import Serializers.Abstractions.Serializer;
 
 public class IntegerSerializer implements Serializer<Integer> {
     @Override

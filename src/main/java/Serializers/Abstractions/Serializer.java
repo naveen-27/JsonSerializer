@@ -1,4 +1,4 @@
-package Serializers.Interfaces;
+package Serializers.Abstractions;
 
 public interface Serializer<T> {
     String serialize(Object object);

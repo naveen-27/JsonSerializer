@@ -1,12 +1,14 @@
-package Serializers;
+package Serializers.Array;
 
-import Serializers.Interfaces.Serializer;
+import Serializers.Abstractions.ArraySerializer;
+import Serializers.Abstractions.Serializer;
+
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class StringArraySerializer extends AbstractArraySerializer<String> implements Serializer<String[]> {
-    public StringArraySerializer() {
-        super(new StringSerializer());
+public class StringArraySerializer extends ArraySerializer<String> implements Serializer<String[]> {
+    public StringArraySerializer(Serializer<String> stringSerializer) {
+        super(stringSerializer);
     }
 
     @Override

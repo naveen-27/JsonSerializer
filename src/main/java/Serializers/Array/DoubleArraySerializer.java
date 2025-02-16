@@ -1,11 +1,13 @@
-package Serializers;
+package Serializers.Array;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
+import Serializers.Abstractions.ArraySerializer;
+import Serializers.Abstractions.Serializer;
 
-public class DoubleArraySerializer extends AbstractArraySerializer<Double> {
-    public DoubleArraySerializer() {
-        super(new DoubleSerializer());
+public class DoubleArraySerializer extends ArraySerializer<Double> {
+    public DoubleArraySerializer(Serializer<Double> doubleSerializer) {
+        super(doubleSerializer);
     }
 
     @Override

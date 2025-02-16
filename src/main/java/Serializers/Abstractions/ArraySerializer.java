@@ -1,14 +1,13 @@
-package Serializers;
+package Serializers.Abstractions;
 
-import Constants.Constants;
-import Serializers.Interfaces.Serializer;
 import java.util.List;
 import java.util.stream.Stream;
+import Constants.Constants;
 
-public abstract class AbstractArraySerializer<T> implements Serializer<T[]> {
+public abstract class ArraySerializer<T> implements Serializer<T[]> {
     private final Serializer<T> serializer;
 
-    protected AbstractArraySerializer(Serializer<T> serializer) {
+    protected ArraySerializer(Serializer<T> serializer) {
         this.serializer = serializer;
     }
 

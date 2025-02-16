@@ -1,5 +1,5 @@
 import Factories.SerializerFactory;
-import Serializers.Interfaces.Serializer;
+import Serializers.Abstractions.Serializer;
 
 public final class JsonSerializer {
     public static String Serialize(Object object) {

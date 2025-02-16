@@ -1,11 +1,13 @@
-package Serializers;
+package Serializers.Array;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
+import Serializers.Abstractions.ArraySerializer;
+import Serializers.Abstractions.Serializer;
 
-public class ObjectArraySerializer extends AbstractArraySerializer<Object> {
-    public ObjectArraySerializer() {
-        super(new ObjectSerializer());
+public class ObjectArraySerializer extends ArraySerializer<Object> {
+    public ObjectArraySerializer(Serializer<Object> objectSerializer) {
+        super(objectSerializer);
     }
 
     @Override

@@ -2,24 +2,28 @@ package Factories;
 
 import Helpers.JsonSerializerHelper;
 import Serializers.*;
-import Serializers.Interfaces.Serializer;
+import Serializers.Array.DoubleArraySerializer;
+import Serializers.Array.IntegerArraySerializer;
+import Serializers.Array.ObjectArraySerializer;
+import Serializers.Array.StringArraySerializer;
+import Serializers.Abstractions.Serializer;
 
 public class SerializerFactory {
     public static Serializer<?> getSerializer(String simpleTypeName) {
-        simpleTypeName = simpleTypeName.toUpperCase();
+        String simpleTypeNameUpper = simpleTypeName.toUpperCase();
 
-        if (JsonSerializerHelper.isArray(simpleTypeName))
-            return getArraySerializer(simpleTypeName);
+        if (JsonSerializerHelper.isArray(simpleTypeNameUpper))
+            return getArraySerializer(simpleTypeNameUpper);
 
-        return getPrimitiveSerializer(simpleTypeName);
+        return getPrimitiveSerializer(simpleTypeNameUpper);
     }
 
     private static Serializer<?> getArraySerializer(String simpleTypeName) {
         return switch (simpleTypeName) {
-            case "INT[]", "INTEGER[]" -> new IntegerArraySerializer();
-            case "STRING[]" -> new StringArraySerializer();
-            case "DOUBLE[]" -> new DoubleArraySerializer();
-            default -> new ObjectArraySerializer();
+            case "INT[]", "INTEGER[]" -> new IntegerArraySerializer(new IntegerSerializer());
+            case "STRING[]" -> new StringArraySerializer(new StringSerializer());
+            case "DOUBLE[]" -> new DoubleArraySerializer(new DoubleSerializer());
+            default -> new ObjectArraySerializer(new ObjectSerializer());
         };
     }
 
